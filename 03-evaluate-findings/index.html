@@ -1,0 +1,584 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="The workshop will demonstrate how you can validate their network configuration without needing to have a deep networking background by using Inspectors Network Reachability report. You will learn how this report can help them find misconfigurations in the architecture or behaviors they might not have expected. The demo will finish with using the Network Reachability report findings integrated with other Security Services to remediate these issues.">
+      
+      
+        <link rel="canonical" href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop/03-evaluate-findings/">
+      
+      
+        <meta name="author" content="aws-security-workshops@amazon.com">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../images/aws-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Module 3: Evaluating Findings - Finding and addressing Network Misconfigurations on AWS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.0284f74d.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../stylesheets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#module-3-evaluating-findings" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop" title="Finding and addressing Network Misconfigurations on AWS" class="md-header-nav__button md-logo">
+          
+            <img src="../images/aws_smile_logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Finding and addressing Network Misconfigurations on AWS
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Module 3: Evaluating Findings
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    mikewest82/InspectorNetworkReachability
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href=".." title="Overview" class="md-tabs__link md-tabs__link--active">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop" title="Finding and addressing Network Misconfigurations on AWS" class="md-nav__button md-logo">
+      
+        <img src="../images/aws_smile_logo.png" width="48" height="48">
+      
+    </a>
+    Finding and addressing Network Misconfigurations on AWS
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    mikewest82/InspectorNetworkReachability
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../01-environment-setup/" title="Module 1: Environment Build and Configuration" class="md-nav__link">
+      Module 1: Environment Build and Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../02-running-inspector/" title="Module 2: Running the Inspector Report" class="md-nav__link">
+      Module 2: Running the Inspector Report
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Module 3: Evaluating Findings" class="md-nav__link md-nav__link--active">
+      Module 3: Evaluating Findings
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../04-integration-and-remediation/" title="Module 4: Integration and Remediation" class="md-nav__link">
+      Module 4: Integration and Remediation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../05-cleanup/" title="Module 5: Cleanup" class="md-nav__link">
+      Module 5: Cleanup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../presentation-notes/" title="Presentation Notes" class="md-nav__link">
+      Presentation Notes
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../contribute/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop/edit/master/docs/03-evaluate-findings.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="module-3-evaluating-findings">Module 3 - Evaluating Findings</h1>
+<p>In the previous module you started the Inspector Assessment against all of the instances and network configurations you created in Module 1. In this module you will evaluate the various findings generated by the Inspector report and identify potential mitigations. You will use these findings to evaluate the assumptions discussed in the start of the workshop. For reference they are:</p>
+<p>Assumption 1.> Instances in private subnets are not accessible from the internet</p>
+<p>Assumption 2.> Putting servers in different Availability zones provides both failover and better reliability</p>
+<p>Assumption 3.> Nothing can route through the bastion VPC</p>
+<p>Assumption 4.> Access to the servers is limited according to the principle of least privilege</p>
+<p>Assumption 5.> The bastion hosts can access all environments</p>
+<h1 id="evaluating-the-inspector-report-findings">Evaluating the Inspector Report Findings</h1>
+<p>Let's look at the Inspector Network Reachability report findings and see what you can learn.</p>
+<ol>
+<li>
+<p>Go back to the Inspector console and select Assessment Runs from the navigation. Your assessment should be marked "Analysis Complete".</p>
+<p><img alt="" src="../images/mod3-1-complete.png" /></p>
+</li>
+<li>
+<p>Click on “Findings”</p>
+<p><img alt="" src="../images/mod3-2-findings.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Inspector Agent delay</p>
+<p>If you see multiple Medium findings and none of the findings indicate the Inspector agent was running, you will need to delete the Assessment and run it again. This means the instances did not have the Inspector agent running at the time of the scan. The agent is installed, it may just have been coming active.</p>
+</div>
+<p>To begin, you will start evaluating the higher severity findings. So let’s take a look at a Medium finding first.</p>
+</li>
+<li>
+<p>Expand the Medium finding by clicking the arrow to the left of “Medium”</p>
+<p><img alt="" src="../images/mod3-3-finding1.png" /></p>
+<p>First, copy the ARN (Amazon Resource Name) that begins with "arn:" into a text editor window, you will need it later. You can see that a misconfigured Security Group is allowing access to an instance and the instance is listening on that port. So Assumption 4 was wrong. This is something the Security team would want addressed first.</p>
+<p>So since you know some things are wrong, let’s check the other findings for this server. You do that by filtering by the instance ID.</p>
+</li>
+<li>
+<p>Highlight the AWS agent ID, copy it, and scroll back to the top to paste the Instance ID of the offending instance in the “Filter”</p>
+<p><img alt="" src="../images/mod3-4-instance-search.png" /></p>
+<p>Hover over the finding titles with your mouse. You will immediately see multiple findings about Peered connections, one Low and the top three Informational findings. Since you already looked at the SSH finding and know you need to address that, let’s look at the Informational finding for this peered connection.</p>
+</li>
+<li>
+<p>Expand the “Finding” Column so you can see enough of the title to see “Peered”</p>
+</li>
+<li>
+<p>Expand the Informational finding that starts with “Aggregate network exposure” and has “Peered”</p>
+<p><img alt="" src="../images/mod3-5-finding2.png" /></p>
+</li>
+<li>
+<p>Check what VPC is peered. Click on the VPC Peering Connection link in the finding to open it in a new window. Note the peer name.</p>
+</li>
+<li>
+<p>Click on the VPC peer name from the finding.</p>
+</li>
+<li>
+<p>Click on the Requester VPC in the bottom window.</p>
+<p>Here you see the peer is to the Bastion VPC. This is okay because you expect this behavior. What you don’t see, however, is anything about connectivity from the WebApp VPC. That’s because the report knows there’s no way to transit through multiple VPC Peering connections today. So this helps you validate Assumption 3 is true as long as there’s no additional routing the report can’t see (for example a Cisco CSR Transit VPC). But this also means Assumption 5 is false because there is no Peer between the Bastion VPC and the Proof of Concept.</p>
+<p>What about the multiple Availability Zone configuration though for this Proof of Concept? Given the misconfiguration, you should check Assumption 2. Since you want to check against multiple Instances, let’s filter by VPC, in this case the PoCVPC.</p>
+</li>
+<li>
+<p>Close the preview window and go back to the findings. Scroll back to the top and put the VPC ID of the offending instance in the “Filter”. Collapse the first finding you had open.</p>
+<p><img alt="" src="../images/mod3-6-vpc-search.png" /></p>
+<p>Next, you want to compare the Internet reachability. The most relevant findings related to internet access are the “Aggregate network exposure” findings. Those are found half way down the list. Comparing them visually you will see one instance only has port 80 open. </p>
+</li>
+<li>
+<p>Expand the first finding that starts with “Aggregate network exposure” and has “internet”.</p>
+<p><img alt="" src="../images/mod3-7-finding3.png" /></p>
+</li>
+<li>
+<p>Notice only port 80 is open. Collapse this finding.</p>
+</li>
+<li>
+<p>Expand the second finding that starts with “Aggregate network exposure” and has “internet” – it will have a different instance ID.</p>
+<p><img alt="" src="../images/mod3-8-finding4.png" /></p>
+<p>Here you see the other instance has ports 22 and 443 open.</p>
+<p>This would indicate than in a failover scenario the second instance would fail to respond to any HTTP traffic. So this must be fixed for failover to work. Assumption 2 is proven false.</p>
+<p>The remaining assumption, Assumption 1, related to the Private Subnets, so let's move on from the POC Server side. You have a couple of things you need to address so can send this report to the developer to have them fix things. Let’s start looking at the WebApp side. Notice the route table for the Database subnet is incorrect, so let’s see if that is having any security impact. Again you can filter by the instance ID, or something you expect to see in the finding. For example, let’s filter by the port number: 3306.</p>
+</li>
+<li>
+<p>Collapse the open findings. Scroll back to the top and put “3306” in the “Filter”</p>
+<p><img alt="" src="../images/mod3-9-port-search.png" /></p>
+<p>Here you are looking for instances open to the internet on this port. One of the first findings indicate the instance has ports are reachable from the internet.</p>
+</li>
+<li>
+<p>Expand the finding that starts with “Aggregate network exposure” and has “internet”</p>
+<p><img alt="" src="../images/mod3-10-finding5.png" /></p>
+<p>From the naming context you know this is wrong since this instance shouldn't have access from the internet. But rather than following this one recommendation, you can also to apply a different route table to the subnet. This just shows how there are different ways to solve the same problem, but it requires context. This is a good example where defense in depth is important. You may have set the Security Group to 0.0.0.0/0 for testing or internal access purposes, but because of a bad assumption you potentially put your entire environment at risk.</p>
+<p>In the end this proves Assumption 1 was false and needs to be revisited for all servers.</p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Alternative methods of analysis<p>There’s another way to compare instance findings like this. You can download all of these findings in a .csv file, allowing you to sort, filter, and compare much more programmatically. We choose not to do this to provide a consistent experience for all participants.</p>
+</p>
+</div>
+<h1 id="take-aways">Take Aways</h1>
+<p>Thanks to the Network Reachability report you were able to validate one assumption but prove that 80% of our assumptions had problems due to misconfigurations. The Network Reachability report gives you confidence in understanding which instances could talk to whom, and in a consistently reportable, auditable manner. This is the power of Amazon Inspector.</p>
+<p>But now what? You don't want to leave these issues as they are, so let's see how to automatically remediate them by combining other AWS tools and services. <a href="../04-integration-and-remediation/">Integration and Remediation</a> will do just that.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../02-running-inspector/" title="Module 2: Running the Inspector Report" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Module 2: Running the Inspector Report
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../04-integration-and-remediation/" title="Module 4: Integration and Remediation" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Module 4: Integration and Remediation
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/aws-samples/amazon-inspector-network-reachability-workshop" class="md-footer-social__link fa fa-home"></a>
+    
+      <a href="https://aws.amazon.com/security/" class="md-footer-social__link fa fa-shield"></a>
+    
+      <a href="https://twitter.com/awssecurityinfo?lang=en" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://aws.amazon.com/blogs/security/" class="md-footer-social__link fa fa-rss"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
