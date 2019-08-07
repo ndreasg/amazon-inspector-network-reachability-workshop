@@ -1,0 +1,54 @@
+# Project information
+
+site_name: Finding and addressing Network Misconfigurations on AWS
+site_description: 'The workshop will demonstrate how you can validate their network configuration without needing to have a deep networking background by using Inspectors Network Reachability report. You will learn how this report can help them find misconfigurations in the architecture or behaviors they might not have expected. The demo will finish with using the Network Reachability report findings integrated with other Security Services to remediate these issues.'
+site_author: 'aws-security-workshops@amazon.com'
+site_url: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
+
+# Repository
+repo_name: 'mikewest82/InspectorNetworkReachability'
+repo_url: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
+
+# Copyright
+copyright: '&copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
+
+# Configuration
+theme:
+  name: 'material'
+  logo: 'images/aws_smile_logo.png'
+  favicon: 'images/aws-favicon.ico'
+  feature:
+    tabs: true
+custom_dir: 'docs/theme'
+
+# Customization
+extra_css:
+    - 'stylesheets/custom.css'
+extra:
+  social:
+    - type: 'home'
+      link: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
+    - type: 'shield'
+      link: 'https://aws.amazon.com/security/'
+    - type: 'twitter'
+      link: 'https://twitter.com/awssecurityinfo?lang=en'
+    - type: 'rss'
+      link: 'https://aws.amazon.com/blogs/security/'
+
+# Extensions
+markdown_extensions:
+    - admonition
+    - codehilite
+    - pymdownx.details
+
+# Navigation
+nav:
+  - Overview: 'README.md'
+  - 'Module 1: Environment Build and Configuration': '01-environment-setup.md'
+  - 'Module 2: Running the Inspector Report': '02-running-inspector.md'
+  - 'Module 3: Evaluating Findings': '03-evaluate-findings.md'
+  - 'Module 4: Integration and Remediation': '04-integration-and-remediation.md'
+  - 'Module 5: Cleanup': '05-cleanup.md'
+  - 'Presentation Notes': 'presentation-notes.md'
+  - Contributing: 'contribute.md'
+  - License: 'license.md'
