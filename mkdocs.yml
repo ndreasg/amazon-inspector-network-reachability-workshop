@@ -6,34 +6,31 @@ site_author: 'aws-security-workshops@amazon.com'
 site_url: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
 
 # Repository
-repo_name: 'mikewest82/InspectorNetworkReachability'
+repo_name: 'amazon-inspector-network-reachability-workshop'
 repo_url: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
 
 # Copyright
-copyright: '&copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
+copyright: '<a href="https://aws.amazon.com/privacy/" target="_blank">Privacy</a> | <a href="https://aws.amazon.com/terms/" target="_blank">Site terms</a> | &copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
 
 # Configuration
 theme:
   name: 'material'
   logo: 'images/aws_smile_logo.png'
   favicon: 'images/aws-favicon.ico'
-  feature:
-    tabs: true
-custom_dir: 'docs/theme'
 
 # Customization
 extra_css:
     - 'stylesheets/custom.css'
 extra:
   social:
-    - type: 'home'
-      link: 'https://github.com/aws-samples/amazon-inspector-network-reachability-workshop'
-    - type: 'shield'
-      link: 'https://aws.amazon.com/security/'
-    - type: 'twitter'
-      link: 'https://twitter.com/awssecurityinfo?lang=en'
-    - type: 'rss'
-      link: 'https://aws.amazon.com/blogs/security/'
+    - icon: fontawesome/solid/home
+      link: https://awssecworkshops.com
+    - icon: fontawesome/solid/shield-alt
+      link: https://aws.amazon.com/security/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/awssecurityinfo?lang=en
+    - icon: fontawesome/solid/rss-square
+      link: https://aws.amazon.com/blogs/security/
 
 # Extensions
 markdown_extensions:
